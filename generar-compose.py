@@ -11,10 +11,11 @@ class Server(yaml.YAMLObject):
         self.entrypoint = "python3 /main.py"
         self.environment = ["PYTHONUNBUFFERED=1", "LOGGING_LEVEL=DEBUG"]
         self.networks = ["testing_net"]
+        self.volumes = ["./server/config.ini"]
 
     def __repr__(self):
         return (
-            "%s(container_name=%r, image=%r, entrypoint=%r, environment=%r, networks=%r)"
+            "%s(container_name=%r, image=%r, entrypoint=%r, environment=%r, networks=%r, volumes=%r)"
             % (
                 self.__class__.__name__,
                 self.container_name,
@@ -22,6 +23,7 @@ class Server(yaml.YAMLObject):
                 self.entrypoint,
                 self.environment,
                 self.networks,
+                self.volumes,
             )
         )
 
@@ -36,10 +38,11 @@ class Client(yaml.YAMLObject):
         self.environment = [f"CLI_ID={number}", "CLI_LOG_LEVEL=DEBUG"]
         self.networks = ["testing_net"]
         self.depends_on = ["server"]
+        self.volumes = ["./client/config.yaml"]
 
     def __repr__(self):
         return (
-            "%s(container_name=%r, image=%r, entrypoint=%r, environment=%r, networks=%r, depends_on=%r)"
+            "%s(container_name=%r, image=%r, entrypoint=%r, environment=%r, networks=%r, depends_on=%r, volumes=%r)"
             % (
                 self.__class__.__name__,
                 self.container_name,
@@ -48,6 +51,7 @@ class Client(yaml.YAMLObject):
                 self.environment,
                 self.networks,
                 self.depends_on,
+                self.volumes,
             )
         )
 
@@ -66,7 +70,11 @@ class TestingNet(yaml.YAMLObject):
 
 
 def generar_data(n_clientes):
-    data = {"name": "tp0", "services": {}, "networks": {}}
+    data = {
+        "name": "tp0",
+        "services": {},
+        "networks": {},
+    }
 
     data["services"]["server"] = Server()
 
