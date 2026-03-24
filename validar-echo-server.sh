@@ -4,7 +4,7 @@ IP="server"
 PORT=12345
 NETWORK="tp0_testing_net"
 
-RESPONSE=$(docker run --network=$NETWORK -it --rm busybox sh -c "echo '$MSG' | nc $IP $PORT")
+RESPONSE=$(docker run --network=$NETWORK --rm busybox sh -c "echo '$MSG' | nc $IP $PORT")
 
 if [ "$RESPONSE" = "$MSG" ]; then
     echo "action: test_echo_server | result: success"
