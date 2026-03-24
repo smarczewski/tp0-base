@@ -11,7 +11,7 @@ class Server(yaml.YAMLObject):
         self.entrypoint = "python3 /main.py"
         self.environment = ["PYTHONUNBUFFERED=1"]
         self.networks = ["testing_net"]
-        self.volumes = ["./server/config.ini"]
+        self.volumes = ["server_config:./server/config.ini"]
 
     def __repr__(self):
         return (
@@ -38,7 +38,7 @@ class Client(yaml.YAMLObject):
         self.environment = [f"CLI_ID={number}"]
         self.networks = ["testing_net"]
         self.depends_on = ["server"]
-        self.volumes = ["./client/config.yaml"]
+        self.volumes = ["client_config:./client/config.yaml"]
 
     def __repr__(self):
         return (
