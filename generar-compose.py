@@ -9,7 +9,7 @@ class Server(yaml.YAMLObject):
         self.container_name = "server"
         self.image = "server:latest"
         self.entrypoint = "python3 /main.py"
-        self.environment = ["PYTHONUNBUFFERED=1", "LOGGING_LEVEL=DEBUG"]
+        self.environment = ["PYTHONUNBUFFERED=1"]
         self.networks = ["testing_net"]
         self.volumes = ["./server/config.ini"]
 
@@ -35,7 +35,7 @@ class Client(yaml.YAMLObject):
         self.container_name = f"client{number}"
         self.image = "client:latest"
         self.entrypoint = "/client"
-        self.environment = [f"CLI_ID={number}", "CLI_LOG_LEVEL=DEBUG"]
+        self.environment = [f"CLI_ID={number}"]
         self.networks = ["testing_net"]
         self.depends_on = ["server"]
         self.volumes = ["./client/config.yaml"]
