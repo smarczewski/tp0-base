@@ -35,7 +35,6 @@ class Server:
                     )
 
     def shutdown(self, signum=None, frame=None):
-        logging.info("action: exit | result: in progress")
         self.running = False
 
         if self._server_socket:
