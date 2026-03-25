@@ -24,11 +24,17 @@ class Server:
         # the server
         self.running = True
         while self.running:
-            client_sock = self.__accept_new_connection()
-            self.client_sock_arr.append(client_sock)
-            self.__handle_client_connection(client_sock)
+            try:
+                client_sock = self.__accept_new_connection()
+                self.client_sock_arr.append(client_sock)
+                self.__handle_client_connection(client_sock)
+            except OSError as e:
+                if self.running:
+                    logging.error(
+                        f"action: accept_connections | result: fail | err: {e}"
+                    )
 
-    def shutdown(self):
+    def shutdown(self, signum=None, frame=None):
         logging.info("action: exit | result: in progress")
         self.running = False
 
@@ -61,6 +67,10 @@ class Server:
             logging.error("action: receive_message | result: fail | error: {e}")
         finally:
             client_sock.close()
+            try:
+                self.client_sock_arr.remove(client_sock)
+            except ValueError:
+                pass
 
     def __accept_new_connection(self):
         """
