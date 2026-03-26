@@ -36,7 +36,12 @@ class Client(yaml.YAMLObject):
         self.image = "client:latest"
         self.entrypoint = "/client"
         self.environment = [
-            f"CLI_ID={number}, NOMBRE=={"Santiago Lionel"}, APELLIDO=={"Lorca"}, DOCUMENTO=={"30904465"}, NACIMIENTO=={"1999-03-17"}, NUMERO={"7574"}"
+            f"CLI_ID={number}",
+            "NOMBRE=Santiago Lionel",
+            "APELLIDO=Lorca",
+            "DOCUMENTO=30904465",
+            "NACIMIENTO=1999-03-17",
+            "NUMERO=7574",
         ]
         self.networks = ["testing_net"]
         self.depends_on = ["server"]
