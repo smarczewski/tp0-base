@@ -23,6 +23,88 @@ services:
       - server
     volumes:
       - ./client/config.yaml:/config.yaml
+    environment:
+      - NOMBRE=Santiago Lionel
+      - APELLIDO=Lorca
+      - DOCUMENTO=30904465
+      - NACIMIENTO=1999-03-17
+      - NUMERO=7574
+
+  client2:
+    container_name: client2
+    image: client:latest
+    entrypoint: /client
+    environment:
+      - CLI_ID=2
+    networks:
+      - testing_net
+    depends_on:
+      - server
+    volumes:
+      - ./client/config.yaml:/config.yaml
+    environment:
+    - NOMBRE=Federico Uriel
+    - APELLIDO=Irrazabal
+    - DOCUMENTO=35764442
+    - NACIMIENTO=2000-06-07
+    - NUMERO=6531
+
+  client3:
+    container_name: client3
+    image: client:latest
+    entrypoint: /client
+    environment:
+      - CLI_ID=3
+    networks:
+      - testing_net
+    depends_on:
+      - server
+    volumes:
+      - ./client/config.yaml:/config.yaml
+    environment:
+    - NOMBRE=Catalina Sofia
+    - APELLIDO=Pellegrini
+    - DOCUMENTO=39544762
+    - NACIMIENTO=2002-01-12
+    - NUMERO=4500
+
+  client4:
+    container_name: client4
+    image: client:latest
+    entrypoint: /client
+    environment:
+      - CLI_ID=4
+    networks:
+      - testing_net
+    depends_on:
+      - server
+    volumes:
+      - ./client/config.yaml:/config.yaml
+    environment:
+    - NOMBRE=Pilar Dolores
+    - APELLIDO=De La Fuente
+    - DOCUMENTO=40000567
+    - NACIMIENTO=2003-11-03
+    - NUMERO=6799
+
+  client5:
+    container_name: client5
+    image: client:latest
+    entrypoint: /client
+    environment:
+      - CLI_ID=5
+    networks:
+      - testing_net
+    depends_on:
+      - server
+    volumes:
+      - ./client/config.yaml:/config.yaml
+    environment:
+    - NOMBRE=Joaquin Enzo
+    - APELLIDO=Alves
+    - DOCUMENTO=41099871
+    - NACIMIENTO=2004-04-23
+    - NUMERO=1299
 
 networks:
   testing_net:
