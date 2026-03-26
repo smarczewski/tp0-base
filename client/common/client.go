@@ -76,7 +76,7 @@ func (c *Client) StartClientLoop(sigChan chan os.Signal) {
 				return
 			}
 
-			log.Infof("action: apuesta_enviada | result: success | dni: %v | numero: %v",
+			log.Infof("action: apuesta_enviada | result: success | dni: $%v | numero: $%v",
 				dni,
 				numero,
 			)
