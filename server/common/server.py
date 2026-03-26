@@ -1,3 +1,7 @@
+from time import sleep
+
+from .comms import read_bet, send_ack
+from .utils import store_bets
 import socket
 import logging
 
@@ -20,8 +24,6 @@ class Server:
         finishes, servers starts to accept new connections again
         """
 
-        # TODO: Modify this program to handle signal to graceful shutdown
-        # the server
         self.running = True
         while self.running:
             try:
@@ -46,25 +48,25 @@ class Server:
 
         logging.info("action: exit | result: success")
 
-    def __handle_client_connection(self, client_sock):
+    def __handle_client_connection(self, client_sock: socket.socket):
         """
-        Read message from a specific client socket and closes the socket
+        Read bet from a specific client socket and closes the socket
 
         If a problem arises in the communication with the client, the
         client socket will also be closed
         """
         try:
-            # TODO: Modify the receive to avoid short-reads
-            msg = client_sock.recv(1024).rstrip().decode("utf-8")
-            addr = client_sock.getpeername()
+            file = client_sock.makefile()
+            bet = read_bet(file)
+            store_bets([bet])
             logging.info(
-                f"action: receive_message | result: success | ip: {addr[0]} | msg: {msg}"
+                f"action: apuesta_almacenada | result: success | dni: ${bet.document} | numero: ${bet.number}"
             )
-            # TODO: Modify the send to avoid short-writes
-            client_sock.send("{}\n".format(msg).encode("utf-8"))
-        except OSError as e:
-            logging.error("action: receive_message | result: fail | error: {e}")
+            send_ack(client_sock, bet.document, bet.number)
+        except Exception as e:
+            logging.error(f"action: apuesta_almacenada | result: fail | error: {e}")
         finally:
+            file.close()
             client_sock.close()
             try:
                 self.client_sock_arr.remove(client_sock)
