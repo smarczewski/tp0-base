@@ -41,7 +41,7 @@ class Bet:
             field_list[1],
             field_list[2],
             field_list[3],
-            datetime.date.fromisoformat(field_list[4]),
+            field_list[4],
             int(field_list[5]),
         )
 
