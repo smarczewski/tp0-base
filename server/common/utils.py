@@ -37,12 +37,12 @@ class Bet:
     @classmethod
     def from_list(cls, field_list):
         return cls(
-            field_list[0],
+            int(field_list[0]),
             field_list[1],
             field_list[2],
             field_list[3],
-            field_list[4],
-            field_list[5],
+            datetime.date.fromisoformat(field_list[4]),
+            int(field_list[5]),
         )
 
 
